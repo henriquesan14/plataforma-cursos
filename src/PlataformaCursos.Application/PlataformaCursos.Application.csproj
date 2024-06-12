@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PlataformaCursos.Infra\PlataformaCursos.Infra.csproj" />
+  </ItemGroup>
+
 </Project>
