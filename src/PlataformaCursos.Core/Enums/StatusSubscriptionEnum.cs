@@ -2,6 +2,6 @@
 {
     public enum StatusSubscriptionEnum
     {
-        ACTIVE, INACTIVE, EXPIRED
+        PENDING, ACTIVE, INACTIVE, EXPIRED
     }
 }

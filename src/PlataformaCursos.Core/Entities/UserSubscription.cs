@@ -4,6 +4,13 @@ namespace PlataformaCursos.Core.Entities
 {
     public class UserSubscription : EntityBase
     {
+        public UserSubscription()
+        {
+            Status = StatusSubscriptionEnum.PENDING;
+            StartDate = DateTime.UtcNow;
+            ExpirationDate = DateTime.UtcNow.AddMonths(1);
+        }
+
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public int SubscriptionId { get; set; }

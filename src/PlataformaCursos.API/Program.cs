@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using PlataformaCursos.API.Extensions;
 using PlataformaCursos.Application.Mappers;
 using PlataformaCursos.Infra.Persistence;
+using PlataformaCursos.Infra.Services;
+using Refit;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,13 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnection")
 builder.Services.AddDbContext<PlataformaCursosDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddInfrastructure();
+
+builder.Services.AddRefitClient<IAsaasService>().ConfigureHttpClient(c =>
+{
+    var urlApi = builder.Configuration["AsaasSettings:Url"];
+    c.BaseAddress = new Uri(urlApi!);
+});
+
 builder.Services.SwaggerConfig();
 
 builder.Services.JsonSerializationConfig();
