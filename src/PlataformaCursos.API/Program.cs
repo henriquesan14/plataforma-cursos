@@ -18,8 +18,11 @@ builder.Services.AddInfrastructure();
 builder.Services.AddRefitClient<IAsaasService>().ConfigureHttpClient(c =>
 {
     var urlApi = builder.Configuration["AsaasSettings:Url"];
+    var token = builder.Configuration["AsaasSettings:Token"];
     c.BaseAddress = new Uri(urlApi!);
+    c.DefaultRequestHeaders.Add("access_token", token);
 });
+
 
 builder.Services.SwaggerConfig();
 
