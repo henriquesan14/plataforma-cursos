@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlataformaCursos.API.Extensions;
+using PlataformaCursos.Application.Mappers;
 using PlataformaCursos.Infra.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,10 @@ builder.Services.AddDbContext<PlataformaCursosDbContext>(options => options.UseN
 builder.Services.AddInfrastructure();
 
 builder.Services.JsonSerializationConfig();
+
+builder.Services.AddAutoMapper(typeof(UserMapper));
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
 
 builder.Services.AddControllers();

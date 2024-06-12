@@ -5,16 +5,13 @@ namespace PlataformaCursos.Infra.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-
-
         private IDbContextTransaction _transaction;
         private readonly PlataformaCursosDbContext _dbContext;
 
-        public UnitOfWork(IDbContextTransaction transaction, PlataformaCursosDbContext dbContext, ICourseRepository courses, ILessonRepository lessons,
-            IModuleRepository modules, IPaymentSubscriptionRepository paymentSubscriptions, ISubscriptionRepository subscriptions,
-            IUserLessonCompletedRepository userLessonsCompleted, IUserRepository users, IUserSubscriptionRepository userSubscriptions)
+        public UnitOfWork(PlataformaCursosDbContext dbContext, ICourseRepository courses, ILessonRepository lessons, IModuleRepository modules,
+            IPaymentSubscriptionRepository paymentSubscriptions, ISubscriptionRepository subscriptions, IUserLessonCompletedRepository userLessonsCompleted,
+            IUserRepository users, IUserSubscriptionRepository userSubscriptions)
         {
-            _transaction = transaction;
             _dbContext = dbContext;
             Courses = courses;
             Lessons = lessons;

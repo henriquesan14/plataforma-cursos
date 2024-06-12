@@ -12,7 +12,7 @@ using PlataformaCursos.Infra.Persistence;
 namespace PlataformaCursos.Infra.Migrations
 {
     [DbContext(typeof(PlataformaCursosDbContext))]
-    [Migration("20240612053708_InitialCreate")]
+    [Migration("20240612061613_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -282,8 +282,8 @@ namespace PlataformaCursos.Infra.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -347,8 +347,8 @@ namespace PlataformaCursos.Infra.Migrations
                     b.Property<int>("CreatedById")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("EndDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Grade")
                         .HasColumnType("integer");
@@ -386,11 +386,11 @@ namespace PlataformaCursos.Infra.Migrations
                     b.Property<int>("CreatedById")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("ExpirationDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("StartDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");

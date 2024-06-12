@@ -9,8 +9,8 @@ namespace PlataformaCursos.Core.Entities
         public int SubscriptionId { get; set; }
         public virtual Subscription Subscription { get; set; }
         public StatusSubscriptionEnum Status { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly ExpirationDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
         public virtual PaymentSubscription PaymentSubscription { get; set; }
     }
