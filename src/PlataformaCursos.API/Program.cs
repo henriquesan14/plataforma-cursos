@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PlataformaCursos.API.Extensions;
 using PlataformaCursos.Infra.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DbConnection");
 builder.Services.AddDbContext<PlataformaCursosDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddInfrastructure();
+
+builder.Services.JsonSerializationConfig();
 
 
 builder.Services.AddControllers();

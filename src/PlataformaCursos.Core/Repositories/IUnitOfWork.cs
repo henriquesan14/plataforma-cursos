@@ -2,14 +2,14 @@
 {
     public interface IUnitOfWork
     {
-        public ICourseRepository Courses { get; set; }
-        public ILessonRepository Lessons { get; set; }
-        public IModuleRepository Modules { get; set; }
-        public IPaymentSubscriptionRepository PaymentSubscriptions { get; set; }
-        public ISubscriptionRepository Subscriptions { get; set; }
-        public IUserLessonCompletedRepository UserLessonsCompleted { get; set; }
-        public IUserRepository Users { get; set; }
-        public IUserSubscriptionRepository UserSubscriptions { get; set; }
+        public ICourseRepository Courses { get;}
+        public ILessonRepository Lessons { get; }
+        public IModuleRepository Modules { get; }
+        public IPaymentSubscriptionRepository PaymentSubscriptions { get;}
+        public ISubscriptionRepository Subscriptions { get; }
+        public IUserLessonCompletedRepository UserLessonsCompleted { get;}
+        public IUserRepository Users { get;}
+        public IUserSubscriptionRepository UserSubscriptions { get;}
 
         Task<int> CompleteAsync();
         Task BeginTransaction();
