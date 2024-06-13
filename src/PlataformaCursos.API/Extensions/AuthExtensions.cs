@@ -28,7 +28,7 @@ namespace PlataformaCursos.API.Extensions
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("User", policy => policy.RequireClaim("Role", "User"));
+                options.AddPolicy("Student", policy => policy.RequireClaim("Role", "Student"));
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Admin"));
             });
 

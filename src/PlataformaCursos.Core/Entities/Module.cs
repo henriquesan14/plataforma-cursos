@@ -6,6 +6,8 @@
         public string Description { get; set; }
 
         public virtual List<Lesson> Lessons { get; set; }
-        public virtual List<Course> Courses { get; set; }
+
+        public int CourseId { get; set; }
+        public virtual Course Course { get; set; }
     }
 }

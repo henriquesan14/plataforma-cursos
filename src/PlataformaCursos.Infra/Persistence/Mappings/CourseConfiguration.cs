@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PlataformaCursos.Core.Entities;
 
-namespace PlataformaCursos.Infra.Mappings
+namespace PlataformaCursos.Infra.Persistence.Mappings
 {
     public class CourseConfiguration : IEntityTypeConfiguration<Course>
     {
@@ -19,12 +19,9 @@ namespace PlataformaCursos.Infra.Mappings
             builder.Property(d => d.Cover)
                     .IsRequired()
                     .HasMaxLength(200);
-            builder.HasMany(d => d.Subscriptions)
-                .WithMany(p => p.Courses)
-                .UsingEntity(p => p.ToTable("CoursesSubscriptions"));
             builder.HasMany(d => d.Modules)
-                .WithMany(p => p.Courses)
-                .UsingEntity(p => p.ToTable("CoursesModules"));
+                .WithOne(p => p.Course)
+                .HasForeignKey(p => p.CourseId);
 
         }
     }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using PlataformaCursos.Core.Entities;
-using PlataformaCursos.Infra.Mappings;
+using PlataformaCursos.Infra.Persistence.Mappings;
 
 namespace PlataformaCursos.Infra.Persistence
 {

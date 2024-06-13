@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PlataformaCursos.Core.Entities;
 
-namespace PlataformaCursos.Infra.Mappings
+namespace PlataformaCursos.Infra.Persistence.Mappings
 {
     public class UserLessonCompletedConfiguration : IEntityTypeConfiguration<UserLessonCompleted>
     {
@@ -16,7 +16,7 @@ namespace PlataformaCursos.Infra.Mappings
                     .IsRequired();
             builder.Property(d => d.EndDate)
                     .IsRequired();
-            
+
             builder.HasOne(d => d.User)
                 .WithMany(p => p.UserLessonsCompleted)
                 .HasForeignKey(p => p.LessonId);

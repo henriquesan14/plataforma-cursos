@@ -22,51 +22,6 @@ namespace PlataformaCursos.Infra.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CourseModule", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ModulesId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("CoursesId", "ModulesId");
-
-                    b.HasIndex("ModulesId");
-
-                    b.ToTable("CoursesModules", (string)null);
-                });
-
-            modelBuilder.Entity("CourseSubscription", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SubscriptionsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("CoursesId", "SubscriptionsId");
-
-                    b.HasIndex("SubscriptionsId");
-
-                    b.ToTable("CoursesSubscriptions", (string)null);
-                });
-
-            modelBuilder.Entity("LessonModule", b =>
-                {
-                    b.Property<int>("LessonsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ModulesId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("LessonsId", "ModulesId");
-
-                    b.HasIndex("ModulesId");
-
-                    b.ToTable("LessonModules", (string)null);
-                });
-
             modelBuilder.Entity("PlataformaCursos.Core.Entities.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -96,6 +51,9 @@ namespace PlataformaCursos.Infra.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -103,6 +61,8 @@ namespace PlataformaCursos.Infra.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubscriptionId");
 
                     b.ToTable("Courses", (string)null);
                 });
@@ -134,6 +94,9 @@ namespace PlataformaCursos.Infra.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)");
 
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -147,6 +110,8 @@ namespace PlataformaCursos.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ModuleId");
+
                     b.ToTable("Lessons", (string)null);
                 });
 
@@ -157,6 +122,9 @@ namespace PlataformaCursos.Infra.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -182,13 +150,18 @@ namespace PlataformaCursos.Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CourseId");
+
                     b.ToTable("Modules", (string)null);
                 });
 
             modelBuilder.Entity("PlataformaCursos.Core.Entities.PaymentSubscription", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -226,11 +199,16 @@ namespace PlataformaCursos.Infra.Migrations
                     b.Property<int>("UpdatedById")
                         .HasColumnType("integer");
 
+                    b.Property<int>("UserSubscriptionId")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("Value")
                         .HasPrecision(5, 2)
                         .HasColumnType("numeric(5,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserSubscriptionId");
 
                     b.ToTable("PaymentsSubscription", (string)null);
                 });
@@ -372,10 +350,7 @@ namespace PlataformaCursos.Infra.Migrations
             modelBuilder.Entity("PlataformaCursos.Core.Entities.UserSubscription", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -408,61 +383,47 @@ namespace PlataformaCursos.Infra.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("UserSubscriptions", (string)null);
                 });
 
-            modelBuilder.Entity("CourseModule", b =>
+            modelBuilder.Entity("PlataformaCursos.Core.Entities.Course", b =>
                 {
-                    b.HasOne("PlataformaCursos.Core.Entities.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
+                    b.HasOne("PlataformaCursos.Core.Entities.Subscription", "Subscription")
+                        .WithMany("Courses")
+                        .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlataformaCursos.Core.Entities.Module", null)
-                        .WithMany()
-                        .HasForeignKey("ModulesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Subscription");
                 });
 
-            modelBuilder.Entity("CourseSubscription", b =>
+            modelBuilder.Entity("PlataformaCursos.Core.Entities.Lesson", b =>
                 {
-                    b.HasOne("PlataformaCursos.Core.Entities.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
+                    b.HasOne("PlataformaCursos.Core.Entities.Module", "Module")
+                        .WithMany("Lessons")
+                        .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlataformaCursos.Core.Entities.Subscription", null)
-                        .WithMany()
-                        .HasForeignKey("SubscriptionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Module");
                 });
 
-            modelBuilder.Entity("LessonModule", b =>
+            modelBuilder.Entity("PlataformaCursos.Core.Entities.Module", b =>
                 {
-                    b.HasOne("PlataformaCursos.Core.Entities.Lesson", null)
-                        .WithMany()
-                        .HasForeignKey("LessonsId")
+                    b.HasOne("PlataformaCursos.Core.Entities.Course", "Course")
+                        .WithMany("Modules")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlataformaCursos.Core.Entities.Module", null)
-                        .WithMany()
-                        .HasForeignKey("ModulesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("PlataformaCursos.Core.Entities.PaymentSubscription", b =>
                 {
                     b.HasOne("PlataformaCursos.Core.Entities.UserSubscription", "UserSubscription")
-                        .WithOne("PaymentSubscription")
-                        .HasForeignKey("PlataformaCursos.Core.Entities.PaymentSubscription", "Id")
+                        .WithMany()
+                        .HasForeignKey("UserSubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -490,15 +451,15 @@ namespace PlataformaCursos.Infra.Migrations
 
             modelBuilder.Entity("PlataformaCursos.Core.Entities.UserSubscription", b =>
                 {
-                    b.HasOne("PlataformaCursos.Core.Entities.Subscription", "Subscription")
-                        .WithMany("UserSubscriptions")
-                        .HasForeignKey("SubscriptionId")
+                    b.HasOne("PlataformaCursos.Core.Entities.User", "User")
+                        .WithOne("UserSubscription")
+                        .HasForeignKey("PlataformaCursos.Core.Entities.UserSubscription", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PlataformaCursos.Core.Entities.User", "User")
-                        .WithMany("UserSubscriptions")
-                        .HasForeignKey("UserId")
+                    b.HasOne("PlataformaCursos.Core.Entities.Subscription", "Subscription")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -507,26 +468,31 @@ namespace PlataformaCursos.Infra.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("PlataformaCursos.Core.Entities.Course", b =>
+                {
+                    b.Navigation("Modules");
+                });
+
             modelBuilder.Entity("PlataformaCursos.Core.Entities.Lesson", b =>
                 {
                     b.Navigation("UserLessonsCompleted");
                 });
 
+            modelBuilder.Entity("PlataformaCursos.Core.Entities.Module", b =>
+                {
+                    b.Navigation("Lessons");
+                });
+
             modelBuilder.Entity("PlataformaCursos.Core.Entities.Subscription", b =>
                 {
-                    b.Navigation("UserSubscriptions");
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("PlataformaCursos.Core.Entities.User", b =>
                 {
                     b.Navigation("UserLessonsCompleted");
 
-                    b.Navigation("UserSubscriptions");
-                });
-
-            modelBuilder.Entity("PlataformaCursos.Core.Entities.UserSubscription", b =>
-                {
-                    b.Navigation("PaymentSubscription")
+                    b.Navigation("UserSubscription")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -15,6 +15,7 @@ namespace PlataformaCursos.Core.Entities
 
         public User() {
             Active = true;
+            Role = RoleEnum.STUDENT;
         }
 
         public void Deactivate()
@@ -22,7 +23,7 @@ namespace PlataformaCursos.Core.Entities
             this.Active = false;
         }
 
-        public virtual List<UserSubscription> UserSubscriptions { get; set; }
+        public virtual UserSubscription UserSubscription { get; set; }
 
         public virtual List<UserLessonCompleted> UserLessonsCompleted { get; set; }
     }

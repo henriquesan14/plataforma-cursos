@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PlataformaCursos.Core.Entities;
 
-namespace PlataformaCursos.Infra.Mappings
+namespace PlataformaCursos.Infra.Persistence.Mappings
 {
     public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
     {
@@ -24,9 +24,9 @@ namespace PlataformaCursos.Infra.Mappings
             builder.HasMany(d => d.UserLessonsCompleted)
                 .WithOne(p => p.Lesson)
                 .HasForeignKey(p => p.LessonId);
-            builder.HasMany(d => d.Modules)
+            builder.HasOne(d => d.Module)
                 .WithMany(p => p.Lessons)
-                .UsingEntity(p => p.ToTable("LessonModules"));
+                .HasForeignKey(p => p.ModuleId);
         }
     }
 }

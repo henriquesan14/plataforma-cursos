@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PlataformaCursos.Core.Entities;
 
-namespace PlataformaCursos.Infra.Mappings
+namespace PlataformaCursos.Infra.Persistence.Mappings
 {
     public class PaymentSubscriptionConfiguration : IEntityTypeConfiguration<PaymentSubscription>
     {
@@ -28,10 +28,6 @@ namespace PlataformaCursos.Infra.Mappings
                     .HasMaxLength(100);
             builder.Property(d => d.DueDate)
                     .IsRequired();
-
-            builder.HasOne(d => d.UserSubscription)
-                .WithOne(e => e.PaymentSubscription)
-                .HasForeignKey<UserSubscription>(e => e.Id);
         }
     }
 }

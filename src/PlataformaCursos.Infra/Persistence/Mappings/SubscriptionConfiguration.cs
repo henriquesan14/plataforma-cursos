@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PlataformaCursos.Core.Entities;
 
-namespace PlataformaCursos.Infra.Mappings
+namespace PlataformaCursos.Infra.Persistence.Mappings
 {
     public class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
     {
@@ -17,12 +17,8 @@ namespace PlataformaCursos.Infra.Mappings
                     .IsRequired();
 
             builder.HasMany(d => d.Courses)
-                .WithMany(p => p.Subscriptions)
-                .UsingEntity(p => p.ToTable("CoursesSubscriptions"));
-
-            builder.HasMany(d => d.UserSubscriptions)
-                .WithOne(p => p.Subscription)
-                .HasForeignKey(p => p.SubscriptionId);
+                .WithOne(d => d.Subscription)
+                .HasForeignKey(d => d.SubscriptionId);
         }
     }
 }
