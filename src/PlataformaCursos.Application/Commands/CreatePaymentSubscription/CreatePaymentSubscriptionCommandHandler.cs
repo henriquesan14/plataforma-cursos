@@ -4,10 +4,7 @@ using PlataformaCursos.Core.Entities;
 using PlataformaCursos.Core.Repositories;
 using PlataformaCursos.Infra.Models.Request;
 using PlataformaCursos.Infra.Services;
-using Refit;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Net;
 
 namespace PlataformaCursos.Application.Commands.CreatePaymentSubscription
 {
