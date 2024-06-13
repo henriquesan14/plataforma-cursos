@@ -18,7 +18,12 @@ namespace PlataformaCursos.Infra.Persistence.Mappings
                     .IsRequired();
 
             builder.HasOne(d => d.User)
-                .WithOne(p => p.UserSubscription);
+                .WithMany(p => p.UserSubscriptions)
+                .HasForeignKey(p => p.UserId);
+
+            builder.HasOne(d => d.Subscription)
+                .WithMany(p => p.UserSubscriptions)
+                .HasForeignKey(p => p.UserId);
         }
     }
 }

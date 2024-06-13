@@ -19,5 +19,7 @@ namespace PlataformaCursos.Core.Entities
         public DateTime StartDate { get; set; }
         public DateTime ExpirationDate { get; set; }
 
+        public virtual List<PaymentSubscription> PaymentsSubscription { get; set; }
+
     }
 }

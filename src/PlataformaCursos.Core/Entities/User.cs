@@ -23,7 +23,7 @@ namespace PlataformaCursos.Core.Entities
             this.Active = false;
         }
 
-        public virtual UserSubscription UserSubscription { get; set; }
+        public virtual List<UserSubscription> UserSubscriptions { get; set; }
 
         public virtual List<UserLessonCompleted> UserLessonsCompleted { get; set; }
     }

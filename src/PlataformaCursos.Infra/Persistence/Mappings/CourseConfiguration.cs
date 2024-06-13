@@ -19,9 +19,14 @@ namespace PlataformaCursos.Infra.Persistence.Mappings
             builder.Property(d => d.Cover)
                     .IsRequired()
                     .HasMaxLength(200);
+
             builder.HasMany(d => d.Modules)
                 .WithOne(p => p.Course)
                 .HasForeignKey(p => p.CourseId);
+
+            builder.HasMany(d => d.Subscriptions)
+                .WithMany(d => d.Courses)
+                .UsingEntity(p => p.ToTable("CourseSubscriptions"));
 
         }
     }
