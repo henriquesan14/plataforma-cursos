@@ -18,6 +18,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="VimeoDotNet" Version="3.2.4" />
   </ItemGroup>
 
 </Project>

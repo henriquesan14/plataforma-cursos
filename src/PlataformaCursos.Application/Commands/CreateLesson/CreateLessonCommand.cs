@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using PlataformaCursos.Infra.Models.Request;
 
 namespace PlataformaCursos.Application.Commands.CreateLesson
 {
@@ -10,5 +11,7 @@ namespace PlataformaCursos.Application.Commands.CreateLesson
         public int Duration { get; set; }
 
         public int ModuleId { get; set; }
+
+        public VimeoUploadRequest VimeoUploadRequest { get; set; }
     }
 }
